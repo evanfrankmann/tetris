@@ -238,11 +238,11 @@ def draw_tetromino(surface, tetromino):
         row = list(line)
         for j, col in enumerate(row):
             if col == 'O':
-                pygame.draw.rect(surface, tetromino.color, (tetromino.x + j * BLOCK_SIZE, tetromino.y + i * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                pygame.draw.rect(surface, COLORS[SHAPES.index(tetromino.shape) + 1], (tetromino.x + j * BLOCK_SIZE, tetromino.y + i * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
                 pygame.draw.rect(surface, (128, 128, 128), (tetromino.x + j * BLOCK_SIZE, tetromino.y + i * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), 1)
 
 def main():
-    global game_over
+    game_over = False
     locked_positions = {}
     change_piece = False
     score = 0
@@ -267,7 +267,7 @@ def main():
 
         if check_collision_bottom_or_locked(current_tetromino, grid, locked_positions):
             for pos in convert_shape_to_positions(current_tetromino):
-                locked_positions[pos] = current_tetromino.color
+                locked_positions[pos] = SHAPES.index(current_tetromino.shape)
             current_tetromino = next_tetromino
             next_tetromino = Tetromino(5, 0, random.choice(SHAPES))
 
